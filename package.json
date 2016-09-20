@@ -1,0 +1,14 @@
+{
+  "name": "first-app",
+  "description": "Digital Ocean Dynamic DNS",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ctsstc/DO-DDNS.git"
+  },
+  "main": "main.js",
+  "dependencies": {
+    "do-wrapper": "^3.9.0",
+    "electron-oauth2": "^2.3.1"
+  }
+}
