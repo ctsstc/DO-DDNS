@@ -1,16 +1,16 @@
 const {app, BrowserWindow} = require('electron');
 
 /// My Classes
-// Auth
-const DOOAuth = require('./classes/DOOAuth');
-var auth = new DOOAuth();
 // Config
 const config = require('./classes/Config');
+// Auth
+const DigitalOcean = require('do-wrapper');
+let api = new DigitalOcean(config.accessToken, 20);
 
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win
+let win = null;
 
 function createWindow() {
   // Create the browser window.
@@ -21,6 +21,10 @@ function createWindow() {
 
   // Open the DevTools.
   win.webContents.openDevTools();
+
+  api.domainsGetAll().then((domains) => {
+    console.log(domains);
+  });
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -39,7 +43,7 @@ function createWindow() {
 app.on('ready', () => {
 
   var window = createWindow();
-  
+
 })
 
 // Quit when all windows are closed.
