@@ -1,15 +1,20 @@
-const electronOauth2 = require('electron-oauth2');
 const {app, BrowserWindow} = require('electron');
+
+/// My Classes
+// Auth
 const DOOAuth = require('./classes/DOOAuth');
 var auth = new DOOAuth();
+// Config
+const config = require('./classes/Config');
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
-  win = new BrowserWindow({width: 800, height: 600})
+  win = new BrowserWindow({ width: 800, height: 600 })
 
   // and load the index.html of the app.
   win.loadURL(`file://${__dirname}/index.html`)
@@ -34,24 +39,8 @@ function createWindow () {
 app.on('ready', () => {
 
   var window = createWindow();
-
-  auth.getAccessToken().then(token => {
-      // use your token.access_token 
-      //console.log("MY TOKEN", token);
-      window.webContents.send('token', token);
- 
-      auth.getRefreshToken(token.refresh_token)
-        .then(newToken => {
-          //use your new token 
-          //console.log("REFRESH TOKEN", newToken);
-          window.webContents.send("refresh token", newToken);
-        }).catch((err)=>{
-            console.log("ERR", err);
-        });
-    }).catch((err)=>{
-        console.log("ERR", err);
-    });;
-} )
+  
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
