@@ -1,4 +1,7 @@
+const electronOauth2 = require('electron-oauth2');
 const {app, BrowserWindow} = require('electron');
+const DOOAuth = require('./classes/DOOAuth');
+var auth = new DOOAuth();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -12,7 +15,7 @@ function createWindow () {
   win.loadURL(`file://${__dirname}/index.html`)
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  win.webContents.openDevTools();
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -21,12 +24,34 @@ function createWindow () {
     // when you should delete the corresponding element.
     win = null
   })
+
+  return win;
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () => {
+
+  var window = createWindow();
+
+  auth.getAccessToken().then(token => {
+      // use your token.access_token 
+      //console.log("MY TOKEN", token);
+      window.webContents.send('token', token);
+ 
+      auth.getRefreshToken(token.refresh_token)
+        .then(newToken => {
+          //use your new token 
+          //console.log("REFRESH TOKEN", newToken);
+          window.webContents.send("refresh token", newToken);
+        }).catch((err)=>{
+            console.log("ERR", err);
+        });
+    }).catch((err)=>{
+        console.log("ERR", err);
+    });;
+} )
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

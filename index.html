@@ -12,5 +12,17 @@
     and Electron <script>document.write(process.versions.electron)</script>.
     <a target="_blank" href="https://cloud.digitalocean.com/v1/oauth/authorize?client_id=7d7683c5a7a7a74275ba78c8aaaf1463015243d21e2483ba47819715075d4d85&redirect_uri=https://localhost:4449/api/v1/oauth&response_type=code&scope=write">Auth Me</a>
     <a target="_blank" href="https://cloud.digitalocean.com/v1/oauth/authorize?response_type=token&client_id=7d7683c5a7a7a74275ba78c8aaaf1463015243d21e2483ba47819715075d4d85&redirect_uri=https://localhost:4449/api/v1/oauth&scope=read&scope=write">Auth Me Implicit</a>
+    <script>
+      var ipc = require('electron').ipcRenderer;
+      
+      ipc.on('token', (event, token) => {
+        console.log("TOKEN", token)  // Prints 'whoooooooh!'
+      })
+
+      ipc.on('refresh token', (e, refreshToken) => {
+        console.log("REFRESH TOKEN", refreshToken);
+      })
+
+    </script>
   </body>
 </html>
