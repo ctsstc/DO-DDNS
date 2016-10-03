@@ -22,9 +22,22 @@ function createWindow() {
   // Open the DevTools.
   win.webContents.openDevTools();
 
-  api.domainsGetAll().then((domains) => {
-    console.log(domains);
+  /*
+    api.account().then((data) => {
+      console.log(data.body);
+    });
+  */
+
+
+  api.domainRecordsGetAll("codyswartz.us").then((domains) => {
+    console.log("DOMAINS", JSON.stringify(domains.body.domain_records, null, "  "));
+    //console.log("AN RECORD", domains.body.domain_records[0]);
+  })
+  .catch((err) => {
+    console.log("ERR", err);
   });
+
+
 
   // Emitted when the window is closed.
   win.on('closed', () => {

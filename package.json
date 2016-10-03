@@ -9,6 +9,7 @@
   "main": "main.js",
   "dependencies": {
     "do-wrapper": "^3.9.0",
+    "electron": "^1.4.2",
     "electron-oauth2": "^2.3.1"
   }
 }
