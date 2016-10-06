@@ -8,8 +8,10 @@
   },
   "main": "main.js",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "do-wrapper": "^3.9.0",
     "electron": "^1.4.2",
-    "electron-oauth2": "^2.3.1"
+    "external-ip": "^0.2.4",
+    "materialize-css": "^0.97.7"
   }
 }

@@ -1,12 +1,13 @@
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow } = require('electron');
+var Promise = require('bluebird');
+var getIP = Promise.promisify(require('external-ip')());
 
 /// My Classes
 // Config
 const config = require('./classes/Config');
 // Auth
 const DigitalOcean = require('do-wrapper');
-let api = new DigitalOcean(config.accessToken, 20);
-
+const api = new DigitalOcean(config.accessToken, 20);
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -28,14 +29,21 @@ function createWindow() {
     });
   */
 
+  getIP()
+    .then((ip) => {
+      console.log(`Das IP: ${ip}`);
+    })
+    .catch((err) => {
+      console.log(`Dat Err: ${err}`);
+    });
 
   api.domainRecordsGetAll("codyswartz.us").then((domains) => {
     console.log("DOMAINS", JSON.stringify(domains.body.domain_records, null, "  "));
     //console.log("AN RECORD", domains.body.domain_records[0]);
   })
-  .catch((err) => {
-    console.log("ERR", err);
-  });
+    .catch((err) => {
+      console.log("ERR", err);
+    });
 
 
 
