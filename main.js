@@ -29,6 +29,8 @@ function createWindow() {
     });
   */
 
+  console.log("WINDOE", win.webContents);
+
   getIP()
     .then((ip) => {
       console.log(`Das IP: ${ip}`);

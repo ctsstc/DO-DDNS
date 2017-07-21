@@ -10,8 +10,11 @@
   "dependencies": {
     "bluebird": "^3.4.6",
     "do-wrapper": "^3.9.0",
-    "electron": "^1.4.2",
+    "electron": "^1.4.3",
     "external-ip": "^0.2.4",
     "materialize-css": "^0.97.7"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
   }
 }
